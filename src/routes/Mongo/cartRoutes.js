@@ -15,7 +15,10 @@ router.post('/', async (req, res) => {
     }
 });
 
-
+router.get('/', async (req,res)=>{
+    const cart = await CartModel.find()
+    res.send(cart)
+})
 // Buscamos el carrito de compra especifico
 router.get ('/:cid', async (req, res) => {
     const cid = req.params.cid;

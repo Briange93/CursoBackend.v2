@@ -80,7 +80,6 @@ app.use(session({
 
 //ROUTERS
 /* app.use('/', express.static(__dirname + '/public')); */
-/* app.use("/api/products", productsRoutes);*/
 /* app.use('/realTimeProducts', realTimeProductsRoutes); */
 app.use("/api/products", productRoutes)
 app.use("/api/carts", cartRoutes);  
