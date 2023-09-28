@@ -57,7 +57,7 @@ function auth(req, res, next){
 }
 
 router.get('/private', auth, (req, res) =>{
-    res.send("Si estas viendo esto es porque pasaste la autorización a este recurso!");
+    res.render('private');
 });
 
 export default router;

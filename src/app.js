@@ -30,7 +30,7 @@ import initializePassport from './config/passport.config.js';
 
 
 //COMENTADOS POR FILE SYSTEM
-/* import {ProductManager} from '../src/managers/productManager.js';  */
+ import {ProductManager} from '../src/managers/productManager.js';
 /* import productsRoutes from './routes/products.routes.js';
 import cartsRoutes from './routes/carts.routes.js';  */
 /* import realTimeProductsRoutes from './routes/realTimeProducts.routes.js'; */
@@ -40,7 +40,7 @@ import cartsRoutes from './routes/carts.routes.js';  */
 dotenv.config();
 const app = express();
 
-/* let productManager = new ProductManager();  */
+ let productManager = new ProductManager();  
 const Port = 8080;
 //Cookies
 app.use(cookieParser("CoderS3cr3tC0d3"));
