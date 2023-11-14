@@ -1,24 +1,20 @@
-const form = document.getElementById('registerForm');
-
-
+const form = document.getElementById('formRegistro');
 form.addEventListener('submit', e => {
     e.preventDefault();
     const data = new FormData(form);
     const obj = {};
     data.forEach((value, key) => obj[key] = value);
-    console.log("Objeto formado:");
-    console.log(obj);
-    
     fetch('/api/sessions/register', {
         method: 'POST',
         body: JSON.stringify(obj),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-
+        headers: new Headers({
+            "Content-Type": "application/json"
+        })
     }).then(result => {
         if (result.status === 200) {
-            window.location.replace('/users/login')
+            window.location.replace('/users/login');
+        } else {
+            alert('Error al registrarse');
         }
-    })
-})
+    });
+});
