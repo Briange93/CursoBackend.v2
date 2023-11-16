@@ -4,6 +4,7 @@ import GitHubStrategy from 'passport-github2';
 import { createHash, isValidPassword } from '../utils.js';
 import { cartManager, userManager } from '../services/factory.js';
 import { UserDTO } from '../services/dao/dto/user.dto.js';
+import userModel from '../services/dao/db/models/user.model.js';
 //Declaramos nuestra estrategia:
 const localStrategy = passportLocal.Strategy;
 const initializePassport = () => {
@@ -20,6 +21,7 @@ const initializePassport = () => {
             try {
                 //const user = await userModel.findOne({ email: profile._json.email })
                 const user = await userManager.getUserByEmail(profile._json.email);
+                
                 if (!user) {
                     //como el usuario no existe, lo genero
                     
@@ -28,20 +30,21 @@ const initializePassport = () => {
                     let newUser = {
                         first_name: profile._json.name,
                         last_name: '{GitHub}',
-                        age: '15', //GitHub fue fundado en 2008 ;=)
+                        age: '15', 
                         email: profile._json.email,
                         password: '',
                         registerMethod: "GitHub",
                         role: "user",
                         cartId: cartParsed.createdCartId
                     }
-                    
+                   console.log(newUser); 
                     const result = await userManager.createUser(new UserDTO(newUser));
-                    result.rol = "Usuario";
+                    result.role = "Usuario";
                     done(null, result)
+                    
                 }
                 else {
-                    user.rol = "Usuario";
+                    user.role = "Usuario";
                     return done(null, user)
                 }
             } catch (error) {
