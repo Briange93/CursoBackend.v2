@@ -14,14 +14,14 @@ const initializePassport = () => {
         {
             clientID: 'Iv1.9ffc5c010a498efd',
             clientSecret: '0abeed24e7dbc1414689f406c6af843f2b60ddbf',
-            callbackUrl: 'http://localhost:8080/api/github/githubcallback'
+            callbackUrl: 'http://localhost:8080/'
         },
         async (accessToken, refreshToken, profile, done) => {
 
             try {
-                //const user = await userModel.findOne({ email: profile._json.email })
-                const user = await userManager.getUserByEmail(profile._json.email);
-                
+                console.log(profile);
+                const user = await userModel.findOne({ email: profile._json.email })
+                //const user = await userManager.getUserByEmail(profile._json.email);
                 if (!user) {
                     //como el usuario no existe, lo genero
                     
@@ -29,21 +29,20 @@ const initializePassport = () => {
                     const cartParsed = JSON.parse(cartId);
                     let newUser = {
                         first_name: profile._json.name,
-                        last_name: '{GitHub}',
-                        age: '15', 
+                        last_name: '{GitHub}', 
                         email: profile._json.email,
+                        age: '15',
                         password: '',
                         registerMethod: "GitHub",
                         role: "user",
                         cartId: cartParsed.createdCartId
-                    }
-                   console.log(newUser); 
-                    const result = await userManager.createUser(new UserDTO(newUser));
+                    } 
+                    const result = await userModel.create(newUser);
                     result.role = "Usuario";
                     done(null, result)
-                    
                 }
                 else {
+                    console.log(profile)
                     user.role = "Usuario";
                     return done(null, user)
                 }
@@ -87,7 +86,7 @@ const initializePassport = () => {
         { passReqToCallback: true, usernameField: 'email' }, async (req, email, password, done) => {
             try {
                 let user = false;
-                if (email == 'adminCoder@coder.com' && password == 'adminCod3r123') {
+                if (email == 'admin@coder.com' && password == 'admin123') {
                     user = { _id: '64ed06ae2254d09457e26b9a', first_name: 'Admin', last_name: 'Coder', email: 'adminCoder@coder.com', age: 99, role: "Admin", cartId: 'DummyCart' }
                 } else {
                    user = await userManager.getUserByEmail(email);

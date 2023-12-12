@@ -26,11 +26,6 @@ const postLoginController = async (req, res) => {
 
 const githubAuthenticateMiddleWare = passport.authenticate('github', {scope: ['user:email']});
 
-
-const getDummyFunction = async (req, res) => {
-    //no hace nada
-}
-
 const githubCallbackMiddleWare = passport.authenticate('github', {failureRedirect: '/api/sessions/fail-gh'});
 
 
@@ -81,4 +76,4 @@ const isAdminMiddleware = (req, res, next) => {
     } 
 }
 
-export { registerMiddleWareLocal, loginMiddleWareLocal, postRegisterController, postLoginController, githubAuthenticateMiddleWare, getDummyFunction, githubCallbackMiddleWare, getGitHubCallbackController, getFailRegisterController, getFailLoginController, getFailGHController, isUserMiddleware, isAdminMiddleware }
+export { registerMiddleWareLocal, loginMiddleWareLocal, postRegisterController, postLoginController, githubAuthenticateMiddleWare, githubCallbackMiddleWare, getGitHubCallbackController, getFailRegisterController, getFailLoginController, getFailGHController, isUserMiddleware, isAdminMiddleware }
