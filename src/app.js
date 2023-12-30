@@ -15,7 +15,7 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import { Server } from 'socket.io';
 import { productManager, messageManager } from './services/factory.js';
-
+import mailRoutes from './routes/mail.routes.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
@@ -55,6 +55,7 @@ app.use("/products", productRoutes);
 app.use("/users", userRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/ticket", ticketRoutes);
+app.use("/mail", mailRoutes);
 app.use("/current", currentRoutes);
 const httpServer = app.listen(config.port, () => {
     console.log(`Server levantado en el puerto ${config.port}`)

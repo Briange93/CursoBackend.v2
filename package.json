@@ -5,8 +5,9 @@
   "main": "./src/app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js --mode prod --ignore /src/data/*.json",
+    "test": "mocha test/supertest.test.js",
+    "start": "node src/app.js --mode prod",
+    "startMon": "nodemon src/app.js --mode prod --ignore /src/data/*.json",
     "dev": "nodemon src/app.js --mode dev --ignore /src/data/*.json",
     "start-fs": "nodemon src/app.js --mode prod --persist file --ignore /src/data/*.json"
   },
@@ -24,10 +25,12 @@
     "express-session": "^1.17.3",
     "mongoose": "^7.4.3",
     "mongoose-paginate-v2": "^1.3.17",
+    "nodemailer": "^6.9.7",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
-    "socket.io": "^4.7.1"
+    "socket.io": "^4.7.1",
+    "winston": "^3.11.0"
   }
 }

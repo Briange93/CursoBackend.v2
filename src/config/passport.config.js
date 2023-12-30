@@ -19,9 +19,7 @@ const initializePassport = () => {
         async (accessToken, refreshToken, profile, done) => {
 
             try {
-                console.log(profile);
-                const user = await userModel.findOne({ email: profile._json.email })
-                //const user = await userManager.getUserByEmail(profile._json.email);
+                const user = await userManager.getUserByEmail(profile._json.email);
                 if (!user) {
                     //como el usuario no existe, lo genero
                     
@@ -29,27 +27,28 @@ const initializePassport = () => {
                     const cartParsed = JSON.parse(cartId);
                     let newUser = {
                         first_name: profile._json.name,
-                        last_name: '{GitHub}', 
+                        last_name: '{GitHub}',
+                        age: '',
                         email: profile._json.email,
-                        age: '15',
                         password: '',
                         registerMethod: "GitHub",
-                        role: "user",
+                        role: "Usuario",
                         cartId: cartParsed.createdCartId
-                    } 
-                    const result = await userModel.create(newUser);
-                    result.role = "Usuario";
+                    }
+                    
+                    const result = await userManager.createUser(new UserDTO(newUser));
+                    result.rol = "Usuario";
                     done(null, result)
                 }
                 else {
-                    console.log(profile)
-                    user.role = "Usuario";
+                    user.rol = "Usuario";
                     return done(null, user)
                 }
             } catch (error) {
                 return done(error)
             }
         }));
+
 
     //localStrategy
     //Registrar usuario con localStrategy
