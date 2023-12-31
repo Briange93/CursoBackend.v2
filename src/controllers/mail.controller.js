@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import config from '../config/enviroment.config.js'
 
+
 const transport = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
@@ -44,3 +45,4 @@ const mailOptions = {
             res.status(500).send({error:error,message:"no se pudo enviar email desde: " + config.gmailAccount}) 
         }
     }
+    
