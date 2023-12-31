@@ -19,15 +19,16 @@ transport.verify(function(error, success){
 
 const mailOptions = {
     from: 'Brian Gilmour BackEnd<' + config.gmailAccount + '>',
-    to: "briangilmour93@gmail.com",
-    subject: "prueba",
+    to: 'briangilmour93@gmail.com',
+    subject: "Recibo de compra",
     html: `<div>
-                         <h1>Holaaaaaaaaaa</h1>
+                         <h2>Este es tu recibo</h2>
+                         <h1>Gracias por tu compra</h1>
                    </div>`,
     attachments: [] 
 }
 
-   export  const sendMail = async (req,res) =>{
+   export  const sendMail = (req,res) =>{
         try{
              transport.sendMail(mailOptions, (error,info)=>{
                 if(error){

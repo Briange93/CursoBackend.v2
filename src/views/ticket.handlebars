@@ -52,8 +52,11 @@
                 <td>$ {{this.product.price}}</td>
                 <td>{{this.quantity}}</td>
             </tr>
+            
             {{/each}}
+            <a href="/mail" class="btn btn-success">Enviar comprobante al mail</a>
             {{/if}}
+            
             {{#if ticket.notAvailableProducts}}
             <table class="table table-bordered table-striped">
             <tr><th colspan="6">Productos que no había Stock</th></tr>
@@ -75,7 +78,9 @@
                 <td>{{this.quantity}}</td>
             </tr>
             {{/each}}
+            
             {{/if}}
+        
 
     </div>
 </body>

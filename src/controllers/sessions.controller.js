@@ -30,22 +30,27 @@ const githubCallbackMiddleWare = passport.authenticate('github', {failureRedirec
 
 
 const getGitHubCallbackController = async (req, res) => {
-        const user = req.user
-        if (!user) {
-            res.status(401).send({ status: 'error', message: 'Cannot login. Something really bad happened... =/' });
-        } else {
-            req.session.user = {
-                name: `${user.first_name} ${user.last_name}`,
-                email: user.email,
-                age: user.age,
-                role: user.role,
-                cartId: user.cartId
-            }
-            res.redirect('/products');
+    const user = req.user
+    if (!user) {
+        res.status(401).send({ status: 'error', message: 'Cannot login. Something really bad happened... =/' });
+    } else {
+        req.session.user = {
+            id: user._id,
+            name: `${user.first_name} ${user.last_name}`,
+            email: user.email,
+            age: user.age,
+            role: user.role,
+            cartId: user.cartId
+        }
+        await userManager.setConnectionTime(req.session.user.id);
+        req.logger.debug(`${new Date().toLocaleString()}: ${req.session.user.name} logged in successfully through GitHub`);
+        res.redirect('/products');
+    }
         }
     
+const getDummyFunction = async (req, res) => {
+    //no hace nada
 }
-
 const getFailRegisterController = (req, res) => {
     res.render('error', { error: 'No se pudo registrar el usuario en forma Local'});
 }
@@ -76,4 +81,4 @@ const isAdminMiddleware = (req, res, next) => {
     } 
 }
 
-export { registerMiddleWareLocal, loginMiddleWareLocal, postRegisterController, postLoginController, githubAuthenticateMiddleWare, githubCallbackMiddleWare, getGitHubCallbackController, getFailRegisterController, getFailLoginController, getFailGHController, isUserMiddleware, isAdminMiddleware }
+export  { registerMiddleWareLocal, loginMiddleWareLocal,getDummyFunction, postRegisterController, postLoginController, githubAuthenticateMiddleWare, githubCallbackMiddleWare, getGitHubCallbackController, getFailRegisterController, getFailLoginController, getFailGHController, isUserMiddleware, isAdminMiddleware }
